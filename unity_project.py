@@ -152,7 +152,7 @@ while True:
             # Total length 68 -> 21x3 + 1 + 1 + 1 + 1 + 1
             sock.sendto(str.encode(str(data)), serverAddressPort)
     # Draw image
-    # Blue box
+    # Red box
     img = cv2.line(img, (velocity_box_width+20, 10),
                    (velocity_box_width+20, height-10), (0, 0, 255), 20)
     img = cv2.line(img, (velocity_box_width+20, height-10),
@@ -161,7 +161,7 @@ while True:
     img = cv2.line(img, (velocity_box_width+20, 10),
                    (width-20, 10), (0, 0, 255), 20)
 
-    # Red box
+    # Blue box
     img = cv2.line(img, (10, 10), (10, width-10), (255, 0, 0), 20)
     img = cv2.line(img, (10, height-10), (velocity_box_width, height-10), (255, 0, 0), 20)
     img = cv2.line(img, (velocity_box_width, 10),
