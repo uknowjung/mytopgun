@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
-
+using System.Net.Sockets;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public float timeCurrent;
     private float timeMax = 5f;
     private bool onlyOnce = false;
+    private UDPReceive udpReceive;
+    private UdpClient udpClient;
 
     private void Awake()
     {
@@ -48,6 +50,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        udpReceive = GameObject.Find("UDPReceive").GetComponent<UDPReceive>();
+
         Vector3 randomSpawnPos = Random.insideUnitSphere * 20f;
         randomSpawnPos.y = 0f;
 
@@ -87,6 +91,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        udpClient = udpReceive.client;
+
         GameObject[] playerList = GameObject.FindGameObjectsWithTag("Player");
         int length = playerList.Length;
 
@@ -110,6 +116,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (gameEnd)
         {
+            udpClient.Close();
             if (health.health <= 0)
             {
                 gameEndText.text = "Game End\nYou Died";

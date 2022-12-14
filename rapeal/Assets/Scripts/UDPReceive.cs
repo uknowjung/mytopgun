@@ -10,7 +10,7 @@ using System.Threading;
 public class UDPReceive : MonoBehaviour
 {
     Thread receiveThread;
-    UdpClient client;
+    public UdpClient client;
     public int port = 5052;
     public bool startRecieving = true;
     public bool printToConsole = false;
@@ -31,7 +31,7 @@ public class UDPReceive : MonoBehaviour
         {
             try
             {
-                IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
+                IPEndPoint anyIP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5052);
                 byte[] dataByte = client.Receive(ref anyIP);
                 data = Encoding.UTF8.GetString(dataByte);
 
